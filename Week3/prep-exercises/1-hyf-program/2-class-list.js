@@ -11,11 +11,42 @@ import { modules, students, mentors, classes } from "./hyf.js";
  *
  *  [{ name: 'John', role: 'student' }, { name: 'Mary', role: 'mentor' }]
  */
+
 const getPeopleOfClass = (className) => {
-  // TODO complete this function
-};
-// You can uncomment out this line to try your function
-// console.log(getPeopleOfClass('class34'));
+  
+function filterByProperty (people, property, value) {
+  return people.filter((person) => {
+    const prop = person[property];
+    if (Array.isArray(prop)) {
+      return prop.includes(value);
+    } else {
+      return prop === value;
+    }
+  });
+}
+
+function getPeopleInfo(people, role) {
+  return people.map((person) => ({ name: person.name, role: role}));
+}
+
+  const classStudents = filterByProperty(students, 'class', className);
+  const classStudentsInfo = getPeopleInfo(classStudents, 'student')
+
+  const currentClass = classes.find(curClass => curClass.name === className);
+  if (!currentClass) {
+    console.error(`There is no ${currentClass} in the list`);
+    return [];
+  }
+
+  const currentModuleOfClass = currentClass.currentModule; 
+
+  const currentMentor = filterByProperty(mentors, 'nowTeaching', currentModuleOfClass);
+  const currentMentorInfo = getPeopleInfo(currentMentor, 'mentor');
+
+  return classStudentsInfo.concat(currentMentorInfo);
+}
+
+console.log(getPeopleOfClass('class34'));
 
 /**
  * We would like to have a complete overview of the current active classes.
@@ -29,8 +60,15 @@ const getPeopleOfClass = (className) => {
  *    class35: [{ name: 'Jane', role: 'student' }, { name: 'Steve', role: 'mentor' }]
  *  }
  */
+
 const getActiveClasses = () => {
-  // TODO complete this function
+ return classes
+  .filter((activeClass) => 
+    activeClass.active === true)
+  .reduce((result, curClass) => {
+    result[curClass.name] = getPeopleOfClass(curClass.name);
+    return result;
+  }, {});
 };
-// You can uncomment out this line to try your function
-// console.log(getActiveClasses());
+
+console.log(getActiveClasses());

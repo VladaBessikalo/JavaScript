@@ -8,9 +8,28 @@ Once you have found those numbers, multiply the numbers and store the result of 
 
 
 const list = [1721, 979, 366, 299, 675, 1456];
-let result;
-    
+
 // Write your code here
+
+function findPair(list) {
+    const newSet = new Set();
+
+    for (let num of list) {
+        let complement = 2020 - num;
+
+        if (newSet.has(complement)) {
+            return [num, complement];
+        }
+
+        newSet.add(num);
+    }
+    return null;
+}
+
+let result = findPair(list).reduce((acc, curNum) => acc * curNum);
+
+console.log(result);
+
 
 
 // TEST CODE, do not change

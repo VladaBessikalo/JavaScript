@@ -14,20 +14,20 @@ import { modules, students, mentors, classes } from "./hyf.js";
 
 const getPeopleOfClass = (className) => {
   
-function filterByProperty (people, property, value) {
-  return people.filter((person) => {
-    const prop = person[property];
-    if (Array.isArray(prop)) {
-      return prop.includes(value);
-    } else {
-      return prop === value;
-    }
-  });
-}
+  function filterByProperty (people, property, value) {
+    return people.filter((person) => {
+      const prop = person[property];
+      if (Array.isArray(prop)) {
+        return prop.includes(value);
+      } else {
+        return prop === value;
+      }
+    });
+  }
 
-function getPeopleInfo(people, role) {
-  return people.map((person) => ({ name: person.name, role: role}));
-}
+  function getPeopleInfo(people, role) {
+    return people.map((person) => ({ name: person.name, role: role}));
+  }
 
   const classStudents = filterByProperty(students, 'class', className);
   const classStudentsInfo = getPeopleInfo(classStudents, 'student')

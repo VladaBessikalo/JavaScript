@@ -7,10 +7,10 @@ class Wallet {
   #dayTotalWithdrawals;
 
 
-  constructor(name, cash, dailyAllowance = 40) {
+  constructor(name, cash) {
     this.#name = name;
     this.#cash = cash;
-    this.#dailyAllowance = dailyAllowance;
+    this.#dailyAllowance = 40;
     this.#dayTotalWithdrawals = 0;
   }
 
